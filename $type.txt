@@ -1,0 +1,46 @@
+$type 
+
+DEFINITIONEXAMPLEDEFINITIONEXAMPLE
+
+
+
+ The following examples query against the product collection with the following documents:
+
+                            
+{ _id: 1, itemDetails: { name: "ab", code: 123 }, quantity: 20, itemtags: 10, company: "samsung"}
+{ _id: 2, itemDetails: { name: "cd", code: 123 }, quantity: 20, itemtags: 20, company: "LG"}
+{ _id: 3, itemDetails: { name: "ij", code: 456 }, quantity: 25, itemtags: 30, company: "Tata" }
+{ _id: 4, itemDetails: { name: "xy", code: 456 }, quantity: 30, itemtags: 40, company: "UV" }
+{ _id: 5, itemDetails: { name: "mn", code: 000 }, quantity: 20, itemtags: 50, company: "Lenovo" }
+                            
+                            
+ Consider the following example:
+
+                            
+db.product.find( { quantity:  { $type : 16 } } ) 
+                            
+                            
+This query will select all documents in the product collection where field with quantity in type int.
+
+                            
+{ _id: 1, itemDetails: { name: "ab", code: 123 }, quantity: 20, itemtags: 10, company: "samsung"}
+{ _id: 2, itemDetails: { name: "cd", code: 123 }, quantity: 20, itemtags: 20, company: "LG"}
+{ _id: 3, itemDetails: { name: "ij", code: 456 }, quantity: 25, itemtags: 30, company: "Tata" }
+{ _id: 4, itemDetails: { name: "xy", code: 456 }, quantity: 30, itemtags: 40, company: "UV" }
+{ _id: 5, itemDetails: { name: "mn", code: 000 }, quantity: 20, itemtags: 50, company: "Lenovo" }
+                            
+                            
+ Consider the following example With Multiple Expressions:
+
+                            
+db.product.find( { quantity:  { $type : 2 } } )  
+                            
+                            
+This query will select all documents in the product collection where field with quantity in type String.
+
+                            
+{ _id: 1, itemDetails: { name: "ab", code: 123 }, quantity: 20, itemtags: 10, company: "samsung"}
+{ _id: 2, itemDetails: { name: "cd", code: 123 }, quantity: 20, itemtags: 20, company: "LG"}
+{ _id: 3, itemDetails: { name: "ij", code: 456 }, quantity: 25, itemtags: 30, company: "Tata" }
+{ _id: 4, itemDetails: { name: "xy", code: 456 }, quantity: 30, itemtags: 40, company: "UV" }
+{ _id: 5, itemDetails: { name: "mn", code: 000 }, quantity: 20, itemtags: 50, company: "Lenovo" }

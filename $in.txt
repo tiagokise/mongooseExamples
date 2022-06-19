@@ -1,0 +1,187 @@
+$in
+
+DEFINITIONEXAMPLEDEFINITIONEXAMPLE
+
+
+ The following examples query against the product collection with the following documents:
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: 123
+    },
+    quantity: 15,
+    itemtags: ["A", "B", "C"]
+}, {
+    _id: 2,
+    itemDetails: {
+        name: "cd",
+        code: 123
+    },
+    quantity: 20,
+    itemtags: ["B"]
+} ,{
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: 456
+    },
+    quantity: 25,
+    itemtags: ["A", "B"]
+}, {
+    _id: 4,
+    itemDetails: {
+        name: "xy",
+        code: 456
+    },
+    quantity: 30,
+    itemtags: ["B", "A"]
+} ,{
+    _id: 5,
+    itemDetails: {
+        name: "mn",
+        code: 000
+    },
+    quantity: 20,
+    itemtags: [
+        ["A", "B"], "C"
+    ]
+}
+                            
+                            
+ Consider the following example:
+
+                            
+db.product.find({
+    itemtags: {
+        $in: ["A"]
+    }
+})    
+                            
+                            
+This query will select all documents in the product collection where the itemtags array field matches value A .
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: 123
+    },
+    quantity: 15,
+    itemtags: ["A", "B", "C"]
+}, {
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: 456
+    },
+    quantity: 25,
+    itemtags: ["A", "B"]
+} ,{
+    _id: 4,
+    itemDetails: {
+        name: "xy",
+        code: 456
+    },
+    quantity: 30,
+    itemtags: ["B", "A"]
+}
+                            
+                            
+ Consider the following example to match values in an array using $in with multiple values:
+
+                            
+db.product.find({
+    itemtags: {
+        $in: ["A", "B"]
+    }
+})        
+                            
+                            
+This query will give following result
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: 123
+    },
+    quantity: 15,
+    itemtags: ["A", "B", "C"]
+}, {
+    _id: 2,
+    itemDetails: {
+        name: "cd",
+        code: 123
+    },
+    quantity: 20,
+    itemtags: ["B"]
+} ,{
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: 456
+    },
+    quantity: 25,
+    itemtags: ["A", "B"]
+} ,{
+    _id: 4,
+    itemDetails: {
+        name: "xy",
+        code: 456
+    },
+    quantity: 30,
+    itemtags: ["B", "A"]
+}
+                            
+                            
+if we use {multi:true} then it updates all filtered document
+
+ Consider the following example:
+
+                            
+db.test.update({
+    itemtags: {
+        $in: ["A"]
+    }
+}, {
+    $set: {
+        quantity: true
+    }
+}, {
+    multi: true
+})      
+                            
+                            
+This query will updated all document filtered document
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: 123
+    },
+    quantity: true,
+    itemtags: ["A", "B", "C"]
+}, {
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: 456
+    },
+    quantity: true,
+    itemtags: ["A", "B"]
+}, {
+    _id: 4,
+    itemDetails: {
+        name: "xy",
+        code: 456
+    },
+    quantity: true,
+    itemtags: ["B", "A"]
+}

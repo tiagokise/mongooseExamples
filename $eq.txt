@@ -1,0 +1,155 @@
+$eq 
+
+DEFINITIONEXAMPLEDEFINITIONEXAMPLE
+
+
+
+ The following examples query against the product collection with the following documents:
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: "123"
+    },
+    quantity: 15,
+    itemtags: ["A", "B", "C"]
+} ,{
+    _id: 2,
+    itemDetails: {
+        name: "cd",
+        code: "123"
+    },
+    quantity: 20,
+    itemtags: ["B"]
+} ,{
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: "456"
+    },
+    quantity: 25,
+    itemtags: ["A", "B"]
+} ,{
+    _id: 4,
+    itemDetails: {
+        name: "xy",
+        code: "456"
+    },
+    quantity: 30,
+    itemtags: ["B", "A"]
+} ,{
+    _id: 5,
+    itemDetails: {
+        name: "mn",
+        code: "000"
+    },
+    quantity: 20,
+    itemtags: [
+        ["A", "B"], "C"
+    ]
+}
+                            
+                            
+Equals a Specified Value
+ The following example queries the product collection to select all documents where the value of the quantity field equals 20:
+
+                            
+db.product.find( { quantity: { $eq: 20 } } )
+            or
+db.product.find( { quantity: 20 } )            
+                            
+                            
+Both queries match the following documents:
+
+                            
+{
+    _id: 2,
+    itemDetails: {
+        name: "cd",
+        code: "123"
+    },
+    quantity: 20,
+    itemtags: ["B"]
+} ,{
+    _id: 5,
+    itemDetails: {
+        name: "mn",
+        code: "000"
+    },
+    quantity: 20,
+    itemtags: [
+        ["A", "B"], "C"
+    ]
+}
+                            
+                            
+Field in Embedded Document Equals a Value
+  The following example queries the product collection to select all documents where the value of the name field in the itemDetails document equals "ab". To specify a condition on a field in an embedded document, use the dot notation.
+
+                            
+db.product.find({
+    "itemDetails.name": {
+        $eq: "ab"
+    }
+})
+            or
+            
+db.product.find({
+    "itemDetails.name": "ab"
+})        
+                            
+                            
+Both queries match the following documents:
+
+                            
+{
+    _id: 1,
+    itemDetails: {
+        name: "ab",
+        code: "123"
+    },
+    quantity: 15,
+    itemtags: ["A", "B", "C"]
+}
+                            
+                            
+Equals an Array Value
+  The following example queries the product collection to select all documents where the itemtags array equals exactly the specified array or the itemtags array contains an element that equals the array [ "A", "B" ].
+
+                            
+db.product.find({
+    itemtags: {
+        $eq: ["A", "B"]
+    }
+})
+           (or)
+
+db.inventory.find({
+    itemtags: ["A", "B"]
+})      
+                            
+                            
+Both queries match the following documents:
+
+                            
+{
+    _id: 3,
+    itemDetails: {
+        name: "ij",
+        code: "456"
+    },
+    quantity: 25,
+    itemtags: ["A", "B"]
+} ,{
+    _id: 5,
+    itemDetails: {
+        name: "mn",
+        code: "000"
+    },
+    quantity: 20,
+    itemtags: [
+        ["A", "B"], "C"
+    ]
+}

@@ -1,0 +1,26 @@
+$nor 
+
+DEFINITIONEXAMPLEDEFINITIONEXAMPLE
+
+ The following examples query against the product collection with the following documents:
+
+                            
+{ _id: 1, itemDetails: { name: "ab", code: 123 }, quantity: 15, itemtags: 10 }
+{ _id: 2, itemDetails: { name: "cd", code: 123 }, quantity: 20, itemtags: 20 }
+{ _id: 3, itemDetails: { name: "ij", code: 456 }, quantity: 25, itemtags: 30 }
+{ _id: 4, itemDetails: { name: "xy", code: 456 }, quantity: 30, itemtags: 40 }
+{ _id: 5, itemDetails: { name: "mn", code: 000 }, quantity: 20, itemtags: 50 }
+                            
+                            
+ Consider the following example:
+
+                            
+db.product.find( { $nor: [ { quantity: { $lt: 20 } }, { itemtags: 10 } ] } )   
+                            
+                            
+The operation of the $not operator is consistent with the behavior of other operators but may yield unexpected results with some data types like arrays
+The $not operator does not support operations with the $regex operator. Instead use // or in your driver interfaces, use your language’s regular expression capability to create regular expression objects.
+contain the quantity field whose value is not equal to 20 and contain the itemtags field whose value is not equal to 10
+contain the quantity field whose value is not equal to 20 but do not contain the itemtags field
+do not contain the quantity field but contain the itemtags field whose value is not equal to true
+do not contain the quantity field and do not contain the itemtags field

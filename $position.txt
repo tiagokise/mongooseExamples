@@ -1,0 +1,38 @@
+$position 
+The $position modifier specifies the location in the array at which the $push operator insert elements. Without the $position modifier, the $push operator inserts elements to the end of the array.To use the $position modifier, it must appear with the $each modifier.
+
+                                
+{ $push: { <field>: { $each: [ <value1>,<value2> ... ],$position: <num> } } }
+                                
+                            
+ The <num> is a non-negative number that corresponds to the position in the array, based on a zero-based index.If the <num> is greater or equal to the length of the array, the $position modifier has no effect and $push adds elements to the end of the array.
+
+Exemplo
+
+DEFINITIONEXAMPLEDEFINITIONEXAMPLE
+
+
+ The following examples query against the product collection with the following documents:
+
+                            
+{ _id: 1, itemDetails: [{ name: "ab", code: 380 }], quantity: 15, itemtags: [ "A", "B"] }
+{ _id: 2, itemDetails: [{ name: "cd", code: 300 }], quantity: 20, itemtags: [ "B" ] }
+{ _id: 3, itemDetails: [{ name: "ij", code: 456 }], quantity: 25, itemtags: [ "A", "B", "B" ] }
+{ _id: 4, itemDetails: [{ name: "xy", code: 456 }], quantity: 30, itemtags: [ "B", "A", ] }
+{ _id: 5, itemDetails: [{ name: "mn", code: 600 }], quantity: 20, itemtags: [ [ "A", "B" ], "C" ] }
+{ _id: 6, itemDetails: [{ name: "mn1", code: 111 },{ name: "mn2", code: 222 }], quantity: 20, itemtags: [ [ "A", "B" ], "C" ] }
+                            
+                            
+ Consider the following example using $push:
+
+                            
+db.getCollection('product').update(
+   { _id: 1},
+   { $push: {"itemtags":{ $each: [ "SSS", "HHHH" ],$position: 0 } }}
+)
+                            
+                            
+The result will be:
+
+                            
+{ _id: 1, itemDetails: [{ name: "ab", code:380 }], quantity: 15, itemtags: ["SSS", "HHHH","A","B"]}
